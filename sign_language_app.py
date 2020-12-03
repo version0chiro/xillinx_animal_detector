@@ -209,8 +209,6 @@ def runApp(batchSize, threads, image_dir,model):
     # acc = (correct/len(listImage))*100
     # print('Correct:',correct,'Wrong:',wrong,'Accuracy: %.2f' %acc,'%')
 
-    del dpu
-
     return
 
 
