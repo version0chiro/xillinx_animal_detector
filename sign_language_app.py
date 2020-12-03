@@ -90,7 +90,7 @@ def runDPU(id,start,dpu,img):
 
 
 
-def runApp(batchSize, threadnum, image_dir,model):
+def runApp(batchSize, threads, image_dir,model):
 
 
     listImage=os.listdir(image_dir)
