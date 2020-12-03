@@ -58,6 +58,7 @@ def runDPU(id,start,dpu,img):
     count = 0
     write_index = start
     while count < n_of_images:
+        print(img[count])
         if (count+batchSize<=n_of_images):
             runSize=batchSize
         else:
@@ -98,7 +99,7 @@ def runDPU(id,start,dpu,img):
             8 : 'spider' ,
             9 : 'sheep'
          }
-        print("detected animal is : "+str(animal[y]))
+        print("detected animal is for "+ str(img[count]) + " : "+str(animal[y]))
         count = count + runSize
         
         
