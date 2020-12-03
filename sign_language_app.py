@@ -79,7 +79,6 @@ def runDPU(id,start,dpu,img,listImage):
             imageRun[j,...] = img[(count+j)% n_of_images].reshape(inputTensors[0].dims[1],inputTensors[0].dims[2],inputTensors[0].dims[3])
 
         """ run with batch """
-        print(len(inputData))
         job_id = dpu.execute_async(inputData,outputData)
         
         dpu.wait(job_id)
