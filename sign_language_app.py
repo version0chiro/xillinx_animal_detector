@@ -83,12 +83,14 @@ def runDPU(id,start,dpu,img):
 
         predictions = outputData[0][0]
         print(predictions)
-        predictions = softmax(predictions)
+        negPrediction = [-x for x in predictions] 
+        predictions = softmax(negPrediction)
         print(predictions)
         print("predictions shape: ",predictions.shape)
-        y = np.argmax(predictions,axis=1)
+        y = np.argmin(predictions,axis=1)
         print("prediction:",y)
         
+        count = count + runSize
         
         
     return
@@ -114,6 +116,7 @@ def runApp(batchSize, threads, image_dir,model):
 
     """ pre-process all images """
     img = []
+    print(listImage)
     for i in range(len(listImage)):
         image = cv2.imread(os.path.join(image_dir,listImage[i]), cv2.IMREAD_GRAYSCALE)
         # image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
