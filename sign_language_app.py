@@ -111,7 +111,7 @@ def runApp(batchSize, threads, image_dir,model):
     img = []
     for i in range(len(listImage)):
         image = cv2.imread(os.path.join(image_dir,listImage[i]), cv2.IMREAD_GRAYSCALE)
-        image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+        # image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
         image = cv2.resize(image,200,200)
         image = image.reshape(-1,200,200,1).astype('float32')
         image = image/255.0
