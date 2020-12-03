@@ -64,7 +64,7 @@ def runDPU(id,start,dpu,img):
             runSize=n_of_images-count
 
  
-        shapeIn = (runSize,) + tuple([inputTensors[0].dims[i] for i in range(inputTensors[0].ndims)][1:])
+        shapeIn = (runSize,) + tuple([inputTensors[0].dims[i] for i in range(inputTensors[0].ndim)][1:])
         
         """ prepare batch input/output """
         outputData = []
