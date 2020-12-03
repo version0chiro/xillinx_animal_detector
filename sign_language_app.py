@@ -36,17 +36,20 @@ def runDPU(id,start,dpu,img):
     """get tensor"""
     inputTensors = dpu.get_input_tensors()
     outputTensors = dpu.get_output_tensors()
-    tensorformat = dpu.get_tensor_format()
-    if tensorformat == dpu.TensorFormat.NCHW:
-        outputHeight = outputTensors[0].dims[2]
-        outputWidth = outputTensors[0].dims[3]
-        outputChannel = outputTensors[0].dims[1]
-    elif tensorformat == dpu.TensorFormat.NHWC:
-        outputHeight = outputTensors[0].dims[1]
-        outputWidth = outputTensors[0].dims[2]
-        outputChannel = outputTensors[0].dims[3]
-    else:
-        exit("Format error")
+    outputHeight = outputTensors[0].dims[1]
+    outputWidth = outputTensors[0].dims[2]
+    outputChannel = outputTensors[0].dims[3]
+    # tensorformat = dpu.get_tensor_format()
+    # if tensorformat == dpu.TensorFormat.NCHW:
+    #     outputHeight = outputTensors[0].dims[2]
+    #     outputWidth = outputTensors[0].dims[3]
+    #     outputChannel = outputTensors[0].dims[1]
+    # elif tensorformat == dpu.TensorFormat.NHWC:
+    #     outputHeight = outputTensors[0].dims[1]
+    #     outputWidth = outputTensors[0].dims[2]
+    #     outputChannel = outputTensors[0].dims[3]
+    # else:
+    #     exit("Format error")
     outputSize = outputHeight*outputWidth*outputChannel
     #softmax = np.empty(outputSize)
 
