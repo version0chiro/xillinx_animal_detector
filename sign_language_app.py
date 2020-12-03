@@ -217,7 +217,7 @@ def main():
     ap = argparse.ArgumentParser()
     
     ap.add_argument('-m','--model', type=str,
-                    default='/home/root/animalRecognition/dpu_densenetx_0.elf'
+                    default='/home/root/animalRecognition/xillinx_animal_detector/dpu_densenetx_0.elf'
                     )
     
     ap.add_argument('-i', '--image_dir',
