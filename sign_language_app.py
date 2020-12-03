@@ -58,7 +58,7 @@ def runDPU(id,start,dpu,img,listImage):
     count = 0
     write_index = start
     while count < n_of_images:
-        print(listImage[count])
+        # print(listImage[count])
         if (count+batchSize<=n_of_images):
             runSize=batchSize
         else:
@@ -79,7 +79,9 @@ def runDPU(id,start,dpu,img,listImage):
             imageRun[j,...] = img[(count+j)% n_of_images].reshape(inputTensors[0].dims[1],inputTensors[0].dims[2],inputTensors[0].dims[3])
 
         """ run with batch """
+        print(inputData)
         job_id = dpu.execute_async(inputData,outputData)
+        
         dpu.wait(job_id)
 
         predictions = outputData[0][0]
@@ -99,7 +101,7 @@ def runDPU(id,start,dpu,img,listImage):
             8 : 'spider' ,
             9 : 'sheep'
          }
-        print("detected animal is for "+ str(listImage[count]) + " : "+str(animal[y]))
+        print("detected animal is : "+str(animal[y]))
         count = count + runSize
         
         
