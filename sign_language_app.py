@@ -85,7 +85,7 @@ def runDPU(id,start,dpu,img):
         predictions = predictions[0][0]
         predictions = softmax(predictions)
         # print("predictions shape: ",predictions.shape)
-        y = np.argmin(predictions)
+        y = np.argmax(predictions)
         animal = {
             0 : 'cat',
             1 : 'dog',
