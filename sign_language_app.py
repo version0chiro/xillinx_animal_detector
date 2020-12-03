@@ -82,7 +82,9 @@ def runDPU(id,start,dpu,img):
         dpu.wait(job_id)
 
         predictions = outputData[0][0]
-        predictions = softmax(predictions,-1)
+        print(predictions)
+        predictions = softmax(predictions)
+        print(predictions)
         print("predictions shape: ",predictions.shape)
         y = np.argmax(predictions,axis=1)
         print("prediction:",y)
