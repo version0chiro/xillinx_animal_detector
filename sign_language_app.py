@@ -101,7 +101,7 @@ def runApp(batchSize, threads, image_dir,model):
     out_q = [None] * runTotal
     g = xir.graph.Graph.deserialize(pathlib.Path(model))
     subgraphs = get_subgraph(g)
-    assert len(subgraph) == 1
+    assert len(subgraphs) == 1
     all_dpu_runners = []
     for i in range(threads):
         all_dpu_runners.append(runner.Runner(subgraphs[0],"run"))
