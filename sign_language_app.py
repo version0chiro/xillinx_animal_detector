@@ -143,41 +143,41 @@ def runApp(batchSize, threads, image_dir,model):
     fps = float(runTotal/timetotal)
     print("FPS=%.2f, total frames = %.0f , time = %.4f seconds" %(fps,runTotal,timetotal))
     
-    threadImages=int(len(img)/threadnum)+1
-    customThreadImages=int(len(custom_img)/threadnum)+1
+    # threadImages=int(len(img)/threadnum)+1
+    # customThreadImages=int(len(custom_img)/threadnum)+1
 
-    # set up the threads
-    for i in range(threadnum):
-        startIdx = i*threadImages
-        if ( (len(listImage)-(i*threadImages)) > threadImages):
-            endIdx=(i+1)*threadImages
-        else:
-            endIdx=len(listImage)
-        t1 = threading.Thread(target=runDPU, args=(dpu,img[startIdx:endIdx],batchSize,results,i,threadImages))
-        threadAll.append(t1)
+    # # set up the threads
+    # for i in range(threadnum):
+    #     startIdx = i*threadImages
+    #     if ( (len(listImage)-(i*threadImages)) > threadImages):
+    #         endIdx=(i+1)*threadImages
+    #     else:
+    #         endIdx=len(listImage)
+    #     t1 = threading.Thread(target=runDPU, args=(dpu,img[startIdx:endIdx],batchSize,results,i,threadImages))
+    #     threadAll.append(t1)
 
-    # set up the custom threads
-    for i in range(threadnum):
-        startIdx = i*customThreadImages
-        if ( (len(customListImage)-(i*customThreadImages)) > customThreadImages):
-            endIdx=(i+1)*customThreadImages
-        else:
-            endIdx=len(customListImage)
-        t2 = threading.Thread(target=runDPU, args=(dpu,custom_img[startIdx:endIdx],batchSize,custom_results,i,customThreadImages))
-        threadAll.append(t2)
+    # # set up the custom threads
+    # for i in range(threadnum):
+    #     startIdx = i*customThreadImages
+    #     if ( (len(customListImage)-(i*customThreadImages)) > customThreadImages):
+    #         endIdx=(i+1)*customThreadImages
+    #     else:
+    #         endIdx=len(customListImage)
+    #     t2 = threading.Thread(target=runDPU, args=(dpu,custom_img[startIdx:endIdx],batchSize,custom_results,i,customThreadImages))
+    #     threadAll.append(t2)
 
-    time1 = time.time()
-    for x in threadAll:
-        x.start()
-    for x in threadAll:
-        x.join()
-    time2 = time.time()
-    timetotal = time2 - time1
+    # time1 = time.time()
+    # for x in threadAll:
+    #     x.start()
+    # for x in threadAll:
+    #     x.join()
+    # time2 = time.time()
+    # timetotal = time2 - time1
 
-    fps = float(runTotal / timetotal)
-    print("Throughput: %.2f FPS" %fps)
+    # fps = float(runTotal / timetotal)
+    # print("Throughput: %.2f FPS" %fps)
 
-    # post-processing - compare results to ground truth labels
+    # # post-processing - compare results to ground truth labels
     # ground truth labels are first part of image file name
     # Note no J or Z on purpose
     # result_guide=["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"]
