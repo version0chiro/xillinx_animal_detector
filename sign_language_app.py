@@ -235,7 +235,7 @@ def main():
     args = ap.parse_args()
 
 
-    runApp(args.batchsize, args.threads, args.image_dir,ap.model)
+    runApp(args.batchsize, args.threads, args.image_dir,args.model)
 
     
 if __name__ == '__main__':
