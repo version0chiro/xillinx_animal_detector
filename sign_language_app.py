@@ -31,7 +31,7 @@ run CNN with batch
 dpu: dpu runner
 img: imagelist to be run
 '''
-def runDPU(id,start,dpu,img):
+def runDPU(id,start,dpu,img,listImage):
 
     """get tensor"""
     inputTensors = dpu.get_input_tensors()
@@ -58,7 +58,7 @@ def runDPU(id,start,dpu,img):
     count = 0
     write_index = start
     while count < n_of_images:
-        print(img[count])
+        print(listImage[count])
         if (count+batchSize<=n_of_images):
             runSize=batchSize
         else:
@@ -99,7 +99,7 @@ def runDPU(id,start,dpu,img):
             8 : 'spider' ,
             9 : 'sheep'
          }
-        print("detected animal is for "+ str(img[count]) + " : "+str(animal[y]))
+        print("detected animal is for "+ str(listImage[count]) + " : "+str(animal[y]))
         count = count + runSize
         
         
@@ -147,7 +147,7 @@ def runApp(batchSize, threads, image_dir,model):
         else:
             end = start + (len(img)//threads)
         in_q = img[start:end]
-        t1 = threading.Thread(target=runDPU, args=(i,start,all_dpu_runners[i],in_q))
+        t1 = threading.Thread(target=runDPU, args=(i,start,all_dpu_runners[i],in_q,listImage))
         threadAll.append(t1)
         start = end
     time1 = time.time()
