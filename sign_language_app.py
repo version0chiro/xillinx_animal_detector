@@ -82,14 +82,23 @@ def runDPU(id,start,dpu,img):
         dpu.wait(job_id)
 
         predictions = outputData[0][0]
-        print(predictions)
-        negPrediction = [-x for x in predictions] 
-        predictions = softmax(negPrediction)
-        print(predictions)
-        print("predictions shape: ",predictions.shape)
-        y = np.argmin(predictions,axis=1)
-        print("prediction:",y)
-        
+        predictions = predictions[0][0]
+        predictions = softmax(predictions)
+        # print("predictions shape: ",predictions.shape)
+        y = np.argmin(predictions)
+        animal = {
+            0 : 'cat',
+            1 : 'dog',
+            2 : 'monkey',
+            3 : 'cow',
+            4 : 'elephant',
+            5 : 'horse' ,
+            6 : 'squirrel',
+            7 : 'chicken' ,
+            8 : 'spider' ,
+            9 : 'sheep'
+         }
+        print("detected animal is : "+str(animal[y]))
         count = count + runSize
         
         
