@@ -143,7 +143,7 @@ def main():
     
     ap.add_argument('-c', '--camera',
                     type=int,
-                    default='0,
+                    default=0,
   	                help='camera number')
     ap.add_argument('-t', '--threads',
                     type=int,
