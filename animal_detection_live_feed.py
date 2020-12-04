@@ -41,13 +41,13 @@ def runDPU(dpu,img):
 
     batchSize = inputTensors[0].dims[0]
 
-    shapeIn = np.empty(1,200,200,1)
+    # shapeIn = np.empty((1,200,200,1))
     
     """ prepare batch input/output """
     outputData = []
     inputData = []
     outputData.append(np.empty((runSize,outputHeight,outputWidth,outputChannel), dtype = np.float32, order = 'C'))
-    inputData.append(np.empty((shapeIn), dtype = np.float32, order = 'C'))
+    inputData.append(np.empty((1,200,200,1), dtype = np.float32, order = 'C'))
     
     """ init input image to input buffer """
     imageRun = inputData[0]
