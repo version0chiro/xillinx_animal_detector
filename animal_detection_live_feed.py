@@ -111,7 +111,8 @@ def runApp(threads, camera,model):
         inputFrame = inputFrame/255.0
         name = runDPU(all_dpu_runners[i],inputFrame)
         print(name)
-        frame = cv2.cvtColor(frame,name,(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA,False)
+        
+        cv2.putText(frame,name, (20,height-50), cv2.FONT_HERSHEY_SIMPLEX,1, (0, 0, 255) , 2, cv2.LINE_AA)
         cv2.imshow('frame',frame)
         
         key = cv2.waitKey(1) & 0xFF
