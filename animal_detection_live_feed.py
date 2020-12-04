@@ -46,7 +46,7 @@ def runDPU(dpu,img):
     """ prepare batch input/output """
     outputData = []
     inputData = []
-    outputData.append(np.empty((runSize,outputHeight,outputWidth,outputChannel), dtype = np.float32, order = 'C'))
+    outputData.append(np.empty((1,outputHeight,outputWidth,outputChannel), dtype = np.float32, order = 'C'))
     inputData.append(np.empty((1,200,200,1), dtype = np.float32, order = 'C'))
     
     """ init input image to input buffer """
