@@ -84,9 +84,6 @@ def runDPU(dpu,img):
 def runApp(threads, camera,model):
     
 
-    listImage=os.listdir(image_dir)
-
-    runTotal = len(listImage)
     
     global out_q
     out_q = [None] * runTotal
