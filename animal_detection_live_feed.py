@@ -105,7 +105,7 @@ def runApp(threads, camera,model):
     while True:
         
         ret,frame = cam.read()
-        frame = cv2.resize(frame,(width=200,height=200))
+        frame = cv2.resize(frame,(200,200))
         greyScaleFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         inputFrame = greyScaleFrame.reshape(-1,200,200,1).astype('float32')
         inputFrame = inputFrame/255.0
