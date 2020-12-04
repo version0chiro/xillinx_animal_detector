@@ -85,8 +85,6 @@ def runApp(threads, camera,model):
     
 
     
-    global out_q
-    out_q = [None] * runTotal
     g = xir.graph.Graph.deserialize(pathlib.Path(model))
     subgraphs = get_subgraph(g)
     assert len(subgraphs) == 1
