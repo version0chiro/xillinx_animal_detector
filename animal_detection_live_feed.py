@@ -101,7 +101,7 @@ def runApp(threads, camera,model):
     if not (cam.isOpened()):
         print("[ERROR] failed to initialize camera",camera)
         exit()
-    fps = FPS().start
+    fps = FPS().start()
     while True:
         
         ret,frame = cam.read()
