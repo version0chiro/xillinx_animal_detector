@@ -95,8 +95,8 @@ def runApp(threads, camera,model):
 
     """ initialize camera """
     cam = cv2.VideoCapture(camera)
-    cam.set(cv2.CAP_PROP_FRAME_WIDTH,400)
-    cam.set(cv2.CAP_PROP_FRAME_HEIGHT,400)
+    cam.set(cv2.CAP_PROP_FRAME_WIDTH,640)
+    cam.set(cv2.CAP_PROP_FRAME_HEIGHT,480)
     if not (cam.isOpened()):
         print("[ERROR] failed to initialize camera",camera)
         exit()
