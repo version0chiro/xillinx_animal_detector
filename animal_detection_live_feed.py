@@ -76,7 +76,7 @@ def runDPU(dpu,img):
         9 : 'sheep'
     }
     print("detected animal is : "+str(animal[y]))
-    count = count + runSize
+    
     
         
     return str(animal[y])
