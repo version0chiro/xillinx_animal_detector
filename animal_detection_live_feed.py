@@ -26,6 +26,61 @@ def get_subgraph (g):
     if s.metadata.get_attr_str ("device") == "DPU"]
     return sub
 
+def runDPU(dpu,img):
+    
+    """get tensor"""
+    inputTensors = dpu.get_input_tensors()
+    outputTensors = dpu.get_output_tensors()
+    outputHeight = outputTensors[0].dims[1]
+    outputWidth = outputTensors[0].dims[2]
+    outputChannel = outputTensors[0].dims[3]
+
+    outputSize = outputHeight*outputWidth*outputChannel
+    #softmax = np.empty(outputSize)
+
+    batchSize = inputTensors[0].dims[0]
+
+    shapeIn = (runSize,) + tuple([inputTensors[0].dims[i] for i in range(inputTensors[0].ndim)][1:])
+    
+    """ prepare batch input/output """
+    outputData = []
+    inputData = []
+    outputData.append(np.empty((runSize,outputHeight,outputWidth,outputChannel), dtype = np.float32, order = 'C'))
+    inputData.append(np.empty((shapeIn), dtype = np.float32, order = 'C'))
+    
+    """ init input image to input buffer """
+    imageRun = inputData[0]
+    imageRun[j,...] = img
+
+    """ run with batch """
+    job_id = dpu.execute_async(inputData,outputData)
+    
+    dpu.wait(job_id)
+
+    predictions = outputData[0][0]
+    predictions = predictions[0][0]
+    predictions = softmax(predictions)
+    # print("predictions shape: ",predictions.shape)
+    y = np.argmax(predictions)
+    animal = {
+        0 : 'cat',
+        1 : 'dog',
+        2 : 'monkey',
+        3 : 'cow',
+        4 : 'elephant',
+        5 : 'horse' ,
+        6 : 'squirrel',
+        7 : 'chicken' ,
+        8 : 'spider' ,
+        9 : 'sheep'
+    }
+    print("detected animal is : "+str(animal[y]))
+    count = count + runSize
+    
+        
+    return str(animal[y])
+
+
 def runApp(threads, camera,model):
     
 
@@ -60,43 +115,22 @@ def runApp(threads, camera,model):
         inputFrame = inputFrame/255.0
         name = runDPU(all_dpu_runners[i],inputFrame)
         print(name)
+        frame = cv2.cvtColor(frame,name,(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA,False)
         cv2.imshow('frame',frame)
-    img = []
-    print(listImage)
-    for i in range(len(listImage)):
-        image = cv2.imread(os.path.join(image_dir,listImage[i]), cv2.IMREAD_GRAYSCALE)
-        # image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-        # image = cv2.resize(image,200,200)
-        image = image.reshape(-1,200,200,1).astype('float32')
-        image = image/255.0
-        img.append(image)
+        
+        key = cv2.waitKey(1) & 0xFF
+        
+        fps.update()
 
+        if key == ord("q"):
+            break
 
-    """run with batch """
-    threadAll = []
-   
-    start = 0
+    fps.stop()
+    print("[INFO] elapsed time: {:.2f}".format(fps.elapsed()))
+    print("[INFO] elapsed FPS: {:.2f}".format(fps.fps()))
+    cv2.destroyAllWindows()
+
     
-    for i in range(threads):
-        if (i==threads-1):
-            end = len(img)
-        else:
-            end = start + (len(img)//threads)
-        in_q = img[start:end]
-        t1 = threading.Thread(target=runDPU, args=(i,start,all_dpu_runners[i],in_q,listImage))
-        threadAll.append(t1)
-        start = end
-    time1 = time.time()
-    for x in threadAll:
-        x.start()
-    for x in threadAll:
-        x.join()
-    time2 = time.time()
-    timetotal = time2 - time1
-    
-    fps = float(runTotal/timetotal)
-    print("FPS=%.2f, total frames = %.0f , time = %.4f seconds" %(fps,runTotal,timetotal))
-
 
 def main():
     
