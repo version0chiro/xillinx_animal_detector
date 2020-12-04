@@ -51,7 +51,7 @@ def runDPU(dpu,img):
     
     """ init input image to input buffer """
     imageRun = inputData[0]
-    imageRun[j,...] = img
+    imageRun[0,...] = img
 
     """ run with batch """
     job_id = dpu.execute_async(inputData,outputData)
