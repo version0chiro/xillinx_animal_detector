@@ -13,6 +13,7 @@ import xir.subgraph
 import pathlib
 import imutils
 import urllib.request
+from imutils.video import FPS
 
 def softmax(x):
     """Compute softmax values for each sets of scores in x."""
